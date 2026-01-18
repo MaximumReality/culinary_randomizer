@@ -3,58 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maximum Reality Generator</title>
+    <title>Mochkil's Snack OS</title>
     <style>
-        body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { width: 90%; max-width: 400px; padding: 20px; border: 2px solid #ff00ff; border-radius: 15px; background: #111; box-shadow: 0 0 15px #ff00ff; text-align: center; }
-        h1 { font-size: 1.2rem; color: #ff00ff; text-transform: uppercase; }
-        #story-display { min-height: 100px; margin: 20px 0; font-size: 1.1rem; line-height: 1.4; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        button { background: #00ff41; color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; margin-bottom: 10px; }
-        .copy-btn { background: #333; color: #00ff41; border: 1px solid #00ff41; }
+        body { background: #050505; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .terminal { width: 90%; max-width: 450px; padding: 25px; border: 2px solid #00ff41; background: #000; box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); border-radius: 5px; text-align: center; }
+        h1 { font-size: 1.1rem; border-bottom: 1px solid #00ff41; padding-bottom: 10px; color: #ff00ff; text-transform: uppercase; }
+        #display-area { height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 20px 0; border: 1px inset #222; background: #080808; }
+        .recipe-name { font-weight: bold; color: #fff; font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 5px #fff; }
+        .mochkil-desc { font-style: italic; color: #00ff41; font-size: 0.9rem; padding: 0 10px; }
+        .main-btn { background: #00ff41; color: #000; border: none; padding: 18px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; border-radius: 4px; }
+        .visit-link { display: none; background: #ff00ff; color: white; text-decoration: none; padding: 15px; margin-top: 15px; font-weight: bold; border-radius: 4px; text-shadow: 1px 1px #000; }
+        .visit-link:hover { background: #d400d4; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Reality Engine v1.0</h1>
-    <div id="story-display">Tap "Generate" to start a new lore timeline...</div>
+<div class="terminal">
+    <h1>[ MOCHKIL_SNACK_OS_v2.6 ]</h1>
     
-    <button onclick="generate()">GENERATE REALITY</button>
-    <button class="copy-btn" onclick="copyStory()">COPY TO CLIPBOARD</button>
+    <div id="display-area">
+        <div id="out-name" class="recipe-name">READY FOR CHAOS?</div>
+        <div id="out-desc" class="mochkil-desc">Tap below to scan the pantry...</div>
+    </div>
+
+    <button id="chaosBtn" class="main-btn" onclick="generateSnack()">🎲 Initiate Snack Scan</button>
+    
+    <a id="recipe-url" href="#" class="visit-link">GO TO RECIPE</a>
 </div>
 
 <script>
-const lore = {
-    "bases": ["Sourdough toast", "Al dente pasta", "A bowl of popcorn", "A cheese quesadilla", "Steamed jasmine rice"],
-    "actions": ["drizzled with", "tossed in", "smothered with", "garnished with", "infused with"],
-    "ingredients": ["truffle oil", "gochujang honey", "fresh basil", "shaved parmesan", "crushed red pepper", "brown butter"],
-    "mochkilisms": [
-        "2 claws of minced garlic", 
-        "a heavy paw-ful of salt", 
-        "3 whisker-lengths of rosemary", 
-        "a chaotic splash of soy sauce", 
-        "enough chili flakes to trigger a reality glitch"
-    ]
-};
+// MASTER RECIPE LIST
+// Just add the filename (slug) from your GitHub recipes folder
+const recipeLibrary = [
+    { name: "Tuna Tartare Takedown", desc: "A Michelin-star strike with a raw edge.", slug: "tuna-takedown.html" },
+    { name: "Bicol Express", desc: "Spicier than a server room fire.", slug: "bicol-express.html" },
+    { name: "Neon Miso Noodles", desc: "3 whisker-lengths of ginger required.", slug: "neon-miso.html" },
+    { name: "Chaos Quesadilla", desc: "Smothered in a heavy paw-ful of cheese.", slug: "pizza.html" },
+    { name: "Quantum Garlic Pasta", desc: "4 claws of garlic. Reality glitch included.", slug: "garlic-pasta.html" }
+];
 
-function generate() {
-    const getRand = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    
-    // Logic: [Base] [Action] [Ingredient] + [Mochkilism]
-    const story = `Mochkil's Snack Attack: ${getRand(lore.bases)} ${getRand(lore.actions)} ${getRand(lore.ingredients)}, finished with ${getRand(lore.mochkilisms)}.`;
-    
-    document.getElementById('story-display').innerText = story;
-}
+function generateSnack() {
+    const btn = document.getElementById('chaosBtn');
+    const nameDisplay = document.getElementById('out-name');
+    const descDisplay = document.getElementById('out-desc');
+    const link = document.getElementById('recipe-url');
 
-function copyStory() {
-    const text = document.getElementById('story-display').innerText;
-    // Mobile-friendly copy
-    navigator.clipboard.writeText(text).then(() => {
-        alert("Recipe copied! Ready for the kitchen.");
-    });
+    // Visual feedback
+    btn.innerText = "SCANNING...";
+    btn.style.background = "#555";
+    
+    setTimeout(() => {
+        const choice = recipeLibrary[Math.floor(Math.random() * recipeLibrary.length)];
+        
+        nameDisplay.innerText = choice.name;
+        descDisplay.innerText = choice.desc;
+        
+        // Link to your actual recipe folder
+        link.href = "https://maximumreality.github.io/recipes/" + choice.slug;
+        link.style.display = "block";
+        
+        btn.innerText = "🎲 SCAN AGAIN";
+        btn.style.background = "#00ff41";
+    }, 600);
 }
 </script>
-
 
 </body>
 </html>
