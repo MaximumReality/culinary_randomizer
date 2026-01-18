@@ -24,26 +24,37 @@
 </div>
 
 <script>
-// This is your "JSON" data living right inside the script
 const lore = {
-    "characters": ["Azul the Sphynx", "Mochkil", "A Quantum Hacker", "The Chaos Chef", "A Cyberpunk Courier"],
-    "settings": ["in a neon-soaked kitchen", "at MaximumReality.xyz HQ", "inside a glitchy arcade cabinet", "on a floating server farm"],
-    "actions": ["accidentally creates a black hole", "perfects a Michelin-star snack", "hacks the reality mainframe", "starts a viral dance-off"],
-    "twists": ["using only a spatula.", "but it's actually 2026.", "while the physics engine fails.", "and Azul is watching."]
+    "bases": ["Sourdough toast", "Al dente pasta", "A bowl of popcorn", "A cheese quesadilla", "Steamed jasmine rice"],
+    "actions": ["drizzled with", "tossed in", "smothered with", "garnished with", "infused with"],
+    "ingredients": ["truffle oil", "gochujang honey", "fresh basil", "shaved parmesan", "crushed red pepper", "brown butter"],
+    "mochkilisms": [
+        "2 claws of minced garlic", 
+        "a heavy paw-ful of salt", 
+        "3 whisker-lengths of rosemary", 
+        "a chaotic splash of soy sauce", 
+        "enough chili flakes to trigger a reality glitch"
+    ]
 };
 
 function generate() {
     const getRand = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    const story = `${getRand(lore.characters)} ${getRand(lore.settings)} ${getRand(lore.actions)} ${getRand(lore.twists)}`;
+    
+    // Logic: [Base] [Action] [Ingredient] + [Mochkilism]
+    const story = `Mochkil's Snack Attack: ${getRand(lore.bases)} ${getRand(lore.actions)} ${getRand(lore.ingredients)}, finished with ${getRand(lore.mochkilisms)}.`;
+    
     document.getElementById('story-display').innerText = story;
 }
 
 function copyStory() {
     const text = document.getElementById('story-display').innerText;
-    navigator.clipboard.writeText(text);
-    alert("Story copied to clipboard!");
+    // Mobile-friendly copy
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Recipe copied! Ready for the kitchen.");
+    });
 }
 </script>
+
 
 </body>
 </html>
