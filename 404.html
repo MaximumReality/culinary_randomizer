@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | SYSTEM_BREACH</title>
+    <style>
+        body { background: #000; color: #ff00ff; font-family: -apple-system, monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        
+        .error-container { text-align: center; padding: 20px; border: 1px solid rgba(255, 0, 255, 0.3); background: rgba(255, 0, 255, 0.05); border-radius: 30px; backdrop-filter: blur(10px); max-width: 400px; }
+        
+        .glitch-code { font-size: 5rem; font-weight: 900; margin: 0; text-shadow: 2px 2px #00f2ff, -2px -2px #ff00ff; animation: glitch 1s infinite; }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .azul-warning { color: #32cd32; font-family: 'Courier New', monospace; font-size: 0.8rem; margin: 20px 0; border-left: 3px solid #32cd32; padding-left: 15px; text-align: left; }
+        
+        .home-btn { 
+            display: inline-block; background: #ff00ff; color: #fff; text-decoration: none; 
+            padding: 15px 30px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; 
+            text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        .cat-visual { font-size: 40px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <div class="cat-visual">🐈‍⬛💻</div>
+    <h1 class="glitch-code">404</h1>
+    <p style="font-weight: bold; letter-spacing: 1px;">REALITY_NOT_FOUND</p>
+    
+    <div class="azul-warning">
+        [AZUL_LOG]: "I've scanned the simulation. The data node you're looking for has been purged or moved to a higher security tier. Either that, or Mochkil spilled sauce on the server."
+    </div>
+
+    <p style="font-size: 0.7rem; opacity: 0.6; text-transform: uppercase;">Location: Unknown Sector</p>
+    
+    <a href="https://maximumreality.xyz" class="home-btn">Return to Base</a>
+</div>
+
+<script>
+    // Add a slight tilt effect for iPhone users
+    window.addEventListener('deviceorientation', (event) => {
+        const container = document.querySelector('.error-container');
+        let rX = event.beta / 4;
+        let rY = event.gamma / 4;
+        container.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg)`;
+    });
+</script>
+
+</body>
+</html>
