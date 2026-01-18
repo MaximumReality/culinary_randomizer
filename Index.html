@@ -6,14 +6,13 @@
     <title>Mochkil's Snack OS</title>
     <style>
         body { background: #050505; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .terminal { width: 90%; max-width: 450px; padding: 25px; border: 2px solid #00ff41; background: #000; box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); border-radius: 5px; text-align: center; }
+        .terminal { width: 95%; max-width: 450px; padding: 25px; border: 2px solid #00ff41; background: #000; box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); border-radius: 12px; text-align: center; }
         h1 { font-size: 1.1rem; border-bottom: 1px solid #00ff41; padding-bottom: 10px; color: #ff00ff; text-transform: uppercase; }
-        #display-area { height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 20px 0; border: 1px inset #222; background: #080808; }
-        .recipe-name { font-weight: bold; color: #fff; font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 5px #fff; }
-        .mochkil-desc { font-style: italic; color: #00ff41; font-size: 0.9rem; padding: 0 10px; }
-        .main-btn { background: #00ff41; color: #000; border: none; padding: 18px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; border-radius: 4px; }
-        .visit-link { display: none; background: #ff00ff; color: white; text-decoration: none; padding: 15px; margin-top: 15px; font-weight: bold; border-radius: 4px; text-shadow: 1px 1px #000; }
-        .visit-link:hover { background: #d400d4; }
+        #display-area { height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 20px 0; border: 1px solid #222; background: #080808; border-radius: 8px; }
+        .recipe-name { font-weight: bold; color: #fff; font-size: 1.2rem; margin-bottom: 8px; padding: 0 10px; }
+        .mochkil-desc { font-style: italic; color: #00ff41; font-size: 0.9rem; padding: 0 15px; line-height: 1.4; }
+        .main-btn { background: #00ff41; color: #000; border: none; padding: 18px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; font-size: 1rem; }
+        .visit-link { display: none; background: #ff00ff; color: white; text-decoration: none; padding: 18px; margin-top: 15px; font-weight: bold; border-radius: 8px; text-align: center; border: 2px solid #fff; }
     </style>
 </head>
 <body>
@@ -22,24 +21,28 @@
     <h1>[ MOCHKIL_SNACK_OS_v2.6 ]</h1>
     
     <div id="display-area">
-        <div id="out-name" class="recipe-name">READY FOR CHAOS?</div>
-        <div id="out-desc" class="mochkil-desc">Tap below to scan the pantry...</div>
+        <div id="out-name" class="recipe-name">SYSTEM_IDLE</div>
+        <div id="out-desc" class="mochkil-desc">Waiting for culinary instructions...</div>
     </div>
 
-    <button id="chaosBtn" class="main-btn" onclick="generateSnack()">🎲 Initiate Snack Scan</button>
+    <button id="chaosBtn" class="main-btn" onclick="generateSnack()">🎲 INITIATE_SCAN</button>
     
-    <a id="recipe-url" href="#" class="visit-link">GO TO RECIPE</a>
+    <a id="recipe-url" href="#" class="visit-link">ACCESS_RECIPE_FILE</a>
 </div>
 
 <script>
-// MASTER RECIPE LIST
-// Just add the filename (slug) from your GitHub recipes folder
 const recipeLibrary = [
     { name: "Tuna Tartare Takedown", desc: "A Michelin-star strike with a raw edge.", slug: "tuna-takedown.html" },
-    { name: "Bicol Express", desc: "Spicier than a server room fire.", slug: "bicol-express.html" },
-    { name: "Neon Miso Noodles", desc: "3 whisker-lengths of ginger required.", slug: "neon-miso.html" },
-    { name: "Chaos Quesadilla", desc: "Smothered in a heavy paw-ful of cheese.", slug: "pizza.html" },
-    { name: "Quantum Garlic Pasta", desc: "4 claws of garlic. Reality glitch included.", slug: "garlic-pasta.html" }
+    { name: "Bicol Express", desc: "Spicier than a reality glitch.", slug: "bicol-express.html" },
+    { name: "Moroccan Lamb Tagine", desc: "Slow-cooked chaos in a clay pot.", slug: "lamb-tagine.html" },
+    { name: "Glitch Gnocchi", desc: "Purple potato protocols and neon pesto.", slug: "glitch-gnocchi.html" },
+    { name: "Galaxy Puff Tower", desc: "Edible glitter and midnight glaze.", slug: "galaxy-puffs.html" },
+    { name: "Tidal Wave Pizza", desc: "A seafood surge for your tastebuds.", slug: "pizza.html" },
+    { name: "Glazed Carnitas Tacos", desc: "Soft-shell protocols enabled.", slug: "tacos.html" },
+    { name: "Miso Salmon Nuggets", desc: "Crunch-tech at maximum levels.", slug: "salmon-nuggets.html" },
+    { name: "Neon Miso Noodles", desc: "Slurpable glowing energy.", slug: "neon-miso.html" },
+    { name: "Chocolate Lava Cake", desc: "Warning: Thermal core is molten.", slug: "lava-cake.html" },
+    { name: "Magic Baghrir", desc: "The thousand-hole pancake glitch.", slug: "baghrir.html" }
 ];
 
 function generateSnack() {
@@ -48,23 +51,19 @@ function generateSnack() {
     const descDisplay = document.getElementById('out-desc');
     const link = document.getElementById('recipe-url');
 
-    // Visual feedback
-    btn.innerText = "SCANNING...";
+    btn.innerText = "SCANNING_VAULT...";
     btn.style.background = "#555";
+    link.style.display = "none";
     
     setTimeout(() => {
         const choice = recipeLibrary[Math.floor(Math.random() * recipeLibrary.length)];
-        
         nameDisplay.innerText = choice.name;
         descDisplay.innerText = choice.desc;
-        
-        // Link to your actual recipe folder
         link.href = "https://maximumreality.github.io/recipes/" + choice.slug;
         link.style.display = "block";
-        
-        btn.innerText = "🎲 SCAN AGAIN";
+        btn.innerText = "🎲 RESCAN_PANTRY";
         btn.style.background = "#00ff41";
-    }, 600);
+    }, 700);
 }
 </script>
 
